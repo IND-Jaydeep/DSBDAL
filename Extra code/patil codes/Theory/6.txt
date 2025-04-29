@@ -1,0 +1,132 @@
+NAIVE BAYES CLASSIFIER
+
+------------------------------------------------------------
+Naive Bayes is a simple probabilistic classification algorithm 
+based on applying **Bayes' Theorem** with the **naive assumption** 
+that the features (input variables) are **independent** given the class.
+
+It’s widely used for:
+- Text classification (e.g., spam filtering)
+- Sentiment analysis
+- Document classification
+
+------------------------------------------------------------
+### Bayes' Theorem:
+
+Bayes' Theorem describes the probability of a class (label) given the features. 
+It is expressed as:
+
+    P(C|X) = (P(X|C) * P(C)) / P(X)
+
+Where:
+- **P(C|X)** = The probability of class **C** given features **X** (posterior probability).
+- **P(X|C)** = The likelihood, or probability of features **X** given class **C**.
+- **P(C)** = The prior probability of class **C**.
+- **P(X)** = The probability of features **X** (also known as the marginal likelihood).
+
+### Naive Assumption:
+
+The "naive" part of the algorithm assumes that all features (X) are **independent** given the class (C). This simplifies the computation of the likelihood P(X|C), which would otherwise be computationally expensive.
+
+    P(X|C) = P(X1|C) * P(X2|C) * ... * P(Xn|C)
+
+This is an unrealistic assumption in many real-world applications, but it works surprisingly well for many problems!
+
+------------------------------------------------------------
+### Types of Naive Bayes Classifiers:
+
+There are three common types of Naive Bayes classifiers based on the type of features:
+
+1. **Gaussian Naive Bayes (for continuous data):**
+   - Assumes that the features follow a **Gaussian (normal) distribution**.
+   - Used when the input features are continuous values, such as height, weight, etc.
+
+2. **Multinomial Naive Bayes (for discrete data):**
+   - Commonly used for **text classification** where the features are word frequencies or word counts.
+   - Assumes that features (e.g., word counts in a document) follow a **multinomial distribution**.
+
+3. **Bernoulli Naive Bayes (for binary data):**
+   - Used when the features are binary (0 or 1).
+   - It works by assuming that each feature follows a **Bernoulli distribution**.
+
+------------------------------------------------------------
+### Naive Bayes Steps:
+
+#### Step 1: **Prior Probability (P(C))**
+   - First, calculate the prior probability of each class. This is the proportion of each class in the dataset.
+   - Example:
+     P(Class 1) = Number of instances of Class 1 / Total number of instances
+
+#### Step 2: **Likelihood (P(X|C))**
+   - Calculate the likelihood of each feature (given the class).
+   - For example, if we're predicting spam or not, we'd calculate the likelihood of the word "free" occurring given that the message is **spam** or **not spam**.
+
+#### Step 3: **Posterior Probability (P(C|X))**
+   - For each class, apply Bayes' Theorem to calculate the posterior probability, which tells us the probability of a class given the input features.
+
+#### Step 4: **Classification**
+   - The class with the highest posterior probability is chosen as the predicted class.
+
+------------------------------------------------------------
+### Naive Bayes Formula for Classification:
+
+For a given class **C** and feature vector **X = {X1, X2, ..., Xn}**, we compute:
+
+    P(C|X) = (P(C) * P(X1|C) * P(X2|C) * ... * P(Xn|C)) / P(X)
+
+Where:
+- **P(C)** = Prior probability of class **C**.
+- **P(X1|C), P(X2|C), ..., P(Xn|C)** = Likelihood of each feature (X) given the class.
+- **P(X)** = Normalizing constant (which is the same for all classes, so we ignore it for classification).
+
+We predict the class **C** that maximizes **P(C|X)**.
+
+------------------------------------------------------------
+### Example:
+
+Let's consider a simple example where we are classifying emails as "spam" or "not spam" based on the presence of two words: "free" and "money".
+
+#### Data:
+- P(spam) = 0.4
+- P(not spam) = 0.6
+- P(free|spam) = 0.7
+- P(free|not spam) = 0.2
+- P(money|spam) = 0.6
+- P(money|not spam) = 0.1
+
+Given an email with "free" and "money", we calculate the posterior probabilities:
+
+    P(spam|free, money) = P(spam) * P(free|spam) * P(money|spam)
+                         = 0.4 * 0.7 * 0.6
+
+    P(not spam|free, money) = P(not spam) * P(free|not spam) * P(money|not spam)
+                             = 0.6 * 0.2 * 0.1
+
+We then compare the probabilities and predict the class with the higher posterior probability.
+
+---
+
+### Pros and Cons of Naive Bayes:
+
+#### **Pros:**
+- **Simple** and easy to implement.
+- **Fast** to train, even on large datasets.
+- Performs well even with **high-dimensional data** (e.g., text data with a large vocabulary).
+- Requires **less training data** compared to other models.
+
+#### **Cons:**
+- The **naive assumption** (features are independent) is often unrealistic, which can lead to **lower accuracy**.
+- It **can't model complex relationships** between features.
+
+------------------------------------------------------------
+### When to Use Naive Bayes:
+
+Naive Bayes is particularly useful when:
+- You have **text classification tasks**, such as email spam detection, sentiment analysis, or document categorization.
+- The **features are conditionally independent**, or you don’t mind the simplification.
+- You want a **fast, efficient** algorithm that works well with **large datasets**.
+
+---
+
+END
+------------------------------------------------------------

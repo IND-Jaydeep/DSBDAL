@@ -1,0 +1,73 @@
+What is Logistic Regression?
+Logistic regression is a supervised machine learning algorithm used for 
+classification tasks where the goal is to predict the probability that an 
+instance belongs to a given class or not. Logistic regression is a statistical 
+algorithm which analyze the relationship between two data factors. The article 
+explores the fundamentals of logistic regression, it’s types and implementations.
+
+
+Understanding Sigmoid Function
+So far, we’ve covered the basics of logistic regression, but now let’s focus on 
+the most important function that forms the core of logistic regression.
+
+The sigmoid function is a mathematical function used to map the predicted values
+ to probabilities.
+It maps any real value into another value within a range of 0 and 1. The value
+ of the logistic regression must be between 0 and 1, which cannot go beyond this limit, so it forms a curve like the “S” form.
+The S-form curve is called the Sigmoid function or the logistic function.
+In logistic regression, we use the concept of the threshold value, which
+ defines the probability of either 0 or 1. Such as values above the threshold value tends to 1, and a value below the threshold values tends to 0.
+
+
+
+ σ(z)=  1
+      1+e ^ −z
+​
+EVALUATING LOGISTIC REGRESSION MODEL
+
+----------------------------------------------------
+Evaluating the model helps us assess the model’s performance 
+and ensure it generalizes well to new data.
+
+We can evaluate the logistic regression model using the following metrics:
+
+1. **Accuracy:**
+   - Accuracy provides the proportion of correctly classified instances.
+   - Formula:
+     Accuracy = (True Positives + True Negatives) / Total
+
+2. **Precision:**
+   - Precision focuses on the accuracy of positive predictions.
+   - Formula:
+     Precision = True Positives / (True Positives + False Positives)
+
+3. **Recall (Sensitivity or True Positive Rate):**
+   - Recall measures the proportion of correctly predicted positive instances among all actual positive instances.
+   - Formula:
+     Recall = True Positives / (True Positives + False Negatives)
+
+4. **F1 Score:**
+   - F1 score is the harmonic mean of precision and recall.
+   - Formula:
+     F1 Score = 2 * (Precision * Recall) / (Precision + Recall)
+
+5. **Area Under the Receiver Operating Characteristic Curve (AUC-ROC):**
+   - The ROC curve plots the true positive rate against the false positive rate at various thresholds.
+   - AUC-ROC measures the area under this curve, providing an aggregate measure of a model’s performance across different classification thresholds.
+
+6. **Area Under the Precision-Recall Curve (AUC-PR):**
+   - Similar to AUC-ROC, AUC-PR measures the area under the precision-recall curve, providing a summary of a model’s performance across different precision-recall trade-offs.
+
+----------------------------------------------------
+END
+----------------------------------------------------
+
+
+
+📊 Confusion Matrix:
+The confusion matrix shows the number of True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN).
+
+
+Predicted Positive	Predicted Negative
+Actual Positive	True Positives (TP)	False Negatives (FN)
+Actual Negative	False Positives (FP)	True Negatives (TN)

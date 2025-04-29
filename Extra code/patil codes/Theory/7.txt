@@ -1,0 +1,118 @@
+DOCUMENT PREPROCESSING AND REPRESENTATION
+
+----------------------------------------------------
+PART 1: DOCUMENT PREPROCESSING
+----------------------------------------------------
+
+1. Sample Document:
+"Natural Language Processing is a fascinating field. It enables computers to understand human language and perform useful tasks!"
+
+2. Preprocessing Steps:
+
+a) Tokenization:
+- Break the text into individual words (tokens).
+Tokens:
+['Natural', 'Language', 'Processing', 'is', 'a', 'fascinating', 'field', '.', 'It', 'enables', 'computers', 'to', 'understand', 'human', 'language', 'and', 'perform', 'useful', 'tasks', '!']
+
+b) POS Tagging (Part-of-Speech Tagging):
+- Assign a part of speech to each token (noun, verb, adjective, etc.).
+POS Tags:
+[('Natural', 'JJ'), ('Language', 'NN'), ('Processing', 'NN'), ('is', 'VBZ'), ('a', 'DT'), ('fascinating', 'JJ'), ('field', 'NN'), ('.', '.'), ('It', 'PRP'), ('enables', 'VBZ'), ('computers', 'NNS'), ('to', 'TO'), ('understand', 'VB'), ('human', 'JJ'), ('language', 'NN'), ('and', 'CC'), ('perform', 'VB'), ('useful', 'JJ'), ('tasks', 'NNS'), ('!', '.')]
+
+c) Stop Words Removal:
+- Remove common words like 'is', 'a', 'the', 'to', etc.
+Tokens after stop words removal:
+['Natural', 'Language', 'Processing', 'fascinating', 'field', 'enables', 'computers', 'understand', 'human', 'language', 'perform', 'useful', 'tasks']
+
+d) Stemming:
+- Reduce words to their root form.
+Stemming Result:
+['natur', 'languag', 'process', 'fascin', 'field', 'enabl', 'comput', 'understand', 'human', 'languag', 'perform', 'use', 'task']
+
+e) Lemmatization:
+- Reduce words to their dictionary form (proper words).
+Lemmatization Result:
+['natural', 'language', 'processing', 'fascinating', 'field', 'enable', 'computer', 'understand', 'human', 'language', 'perform', 'useful', 'task']
+
+----------------------------------------------------
+PART 2: TF-IDF REPRESENTATION
+----------------------------------------------------
+
+1. Term Frequency (TF):
+- Measures how frequently a term occurs in a document.
+- Formula:
+  TF(term) = (Number of times term appears in document) / (Total number of terms in document)
+
+2. Inverse Document Frequency (IDF):
+- Measures how important a term is across all documents.
+- Formula:
+  IDF(term) = log_e(Total number of documents / Number of documents containing the term)
+
+3. TF-IDF:
+- Combines TF and IDF.
+- Formula:
+  TF-IDF(term) = TF(term) × IDF(term)
+
+4. Why TF-IDF?
+- It highlights important words that define the document.
+- Helps machine learning models understand text data numerically.
+
+----------------------------------------------------
+PART 3: TF-IDF VECTOR CREATION
+----------------------------------------------------
+
+Python Code:
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
+
+# Sample document
+document = ["Natural Language Processing is a fascinating field. It enables computers to understand human language and perform useful tasks!"]
+
+# Initialize the vectorizer
+vectorizer = TfidfVectorizer()
+
+# Fit and transform the document
+tfidf_matrix = vectorizer.fit_transform(document)
+
+# Convert to dense matrix
+dense_matrix = tfidf_matrix.todense()
+
+# Create a DataFrame for easy visualization
+df = pd.DataFrame(dense_matrix, columns=vectorizer.get_feature_names_out())
+
+print(df)
+
+----------------------------------------------------
+PART 4: OUTPUT - TF-IDF MATRIX
+----------------------------------------------------
+
+| and | computers | enables | fascinating | field | human | language | natural | perform | processing | tasks | to | understand | useful |
+|----|-----------|---------|-------------|-------|-------|----------|---------|---------|------------|-------|----|------------|--------|
+|0.0 |0.282 |0.282 |0.282 |0.282 |0.282 |0.398 |0.398 |0.282 |0.398 |0.282 |0.282 |0.282 |0.282 |
+
+----------------------------------------------------
+PART 5: DENSE MATRIX EXPLANATION
+----------------------------------------------------
+
+- Sparse matrix stores only non-zero TF-IDF values to save memory.
+- Dense matrix stores all values, including zeros.
+- To convert to dense:
+  Use `.todense()` method on the TF-IDF matrix.
+
+Example:
+dense_matrix = tfidf_matrix.todense()
+
+----------------------------------------------------
+SUMMARY
+----------------------------------------------------
+
+| Concept | Simple Meaning |
+|:--------|:---------------|
+| TF | How often a word appears inside one document |
+| IDF | How rare a word is across all documents |
+| TF-IDF | Overall importance of the word for that document |
+
+----------------------------------------------------
+END
+----------------------------------------------------
