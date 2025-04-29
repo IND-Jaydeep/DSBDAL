@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+
+# Load dataset
+df = pd.read_csv("/mnt/data/boston_housing (1).csv")  # your uploaded file
+
+# View dataset
+print(df.shape)
+print(df.describe())
+print(df.head())
+
+# Split features and target
+df_x = df.drop('price', axis=1)  # Features
+df_y = df['price']               # Target
+
+# Initialize linear regression model
+reg = linear_model.LinearRegression()
+
+# Split the data (67% train, 33% test)
+x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.33, random_state=42)
+
+# Train the model
+reg.fit(x_train, y_train)
+
+# Print model coefficients
+print("Coefficients:", reg.coef_)
+
+# Predict house prices
+y_pred = reg.predict(x_test)
+print("Predicted Prices:", y_pred)
+
+# Compare 1st predicted vs actual price
+print("Predicted price:", y_pred[0])
+print("Actual price:", y_test.iloc[0])  # use iloc for indexing
+
+# Check model performance (Mean Squared Error)
+mse = np.mean((y_pred - y_test) ** 2)
+print("Mean Squared Error:", mse)

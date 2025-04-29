@@ -1,0 +1,69 @@
+#setting up for some text preprocessing and feature extraction
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
+import string
+nltk.download('all')
+
+#download the tokenizer models required for word_tokenize()
+nltk.download('punkt_tab')
+
+#Downloads the Part-of-Speech (POS) tagger
+nltk.download('averaged_perceptron_tagger')
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+#Taking any random text data
+text = """NLTK(natural language toolkit) is a leading platform for building Python programs to work with human language
+data. It provides easy-to-use interfaces and lexical resources such as WordNet, along with a suite of text processing
+libraries for classification, tokenization, stemming, tagging, parsing, and semantic reasoning and many more.
+Analysing movie reviews is one of the classic examples to demonstrate a simple NLP Bag-of-words model, on
+movie reviews.  """
+
+#To break a sentence into individual words
+tokens = word_tokenize(text)
+print("Tokens:", tokens)
+
+import nltk
+from nltk import word_tokenize, pos_tag
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
+#assigning Part-of-Speech (POS) tags to each token
+pos_tags = pos_tag(tokens)
+
+#Print POS
+print("POS Tags:", pos_tags)
+
+# filtering Stop words and punctuation
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [word for word in tokens if word.lower() not in stop_words and word not in string.punctuation]
+print("Filtered Tokens:", filtered_tokens)
+
+#using the Porter Stemmer to reduce words to their root form.
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(word) for word in filtered_tokens]
+print("Stemmed Words:", stemmed)
+
+#to reduce words to their base form in a more linguistically accurate way than stemming
+lemmatizer = WordNetLemmatizer()
+lemmatized = [lemmatizer.lemmatize(word) for word in filtered_tokens]
+print("Lemmatized Words:", lemmatized)
+
+#converting text data into a TF-IDF matrix
+corpus = [" ".join(lemmatized)]  # converting list to string
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(corpus)
+
+# Create DataFrame
+df_tfidf = pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names_out())
+print("\nTF-IDF Matrix:")
+print(df_tfidf)
